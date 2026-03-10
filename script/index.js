@@ -8,18 +8,23 @@ const getSynonyms = (synonyms) => {
   });
 
   return synonymButtons.join(" ");
+};
+
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
 }
 
 const spinnerManager = (isLoading) => {
   if (isLoading === true) {
     document.getElementById("spinner").classList.remove("hidden");
     document.getElementById("word-container").classList.add("hidden");
-  }
-  else {
+  } else {
     document.getElementById("spinner").classList.add("hidden");
     document.getElementById("word-container").classList.remove("hidden");
   }
-}
+};
 
 const loadLessons = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
@@ -79,8 +84,6 @@ const displayWordDetails = (word) => {
 
   `;
 
-  
-
   // const getWord = (words) => {
   //   for (let word of words) {
   //     const synonyms = document.getElementById("synonyms");
@@ -109,29 +112,27 @@ const displayLevelWord = (words) => {
             <h2 class="text-[#292524] text-[34px] font-bangla font-medium leading-10">নেক্সট Lesson এ যান</h2>
         </div>
         `;
-        spinnerManager(false);
+    spinnerManager(false);
     return;
   }
 
   words.forEach((word) => {
-    //       {
-    //     "id": 75,
-    //     "level": 1,
-    //     "word": "Eat",
-    //     "meaning": "খাওয়া",
-    //     "pronunciation": "ইট"
-    // }
     const card = document.createElement("div");
+
+    
+    card.className =
+      "bg-white rounded-[12px] text-center shadow-sm py-10 px-5 h-full flex flex-col justify-between";
+
     card.innerHTML = `
-         <div class="bg-white rounded-[12px] text-center shadow-sm py-10 px-5 max-h-[320px]">
+        <div>
             <h2 class="font-bold text-[32px] leading-6 mb-6">${word.word ? word.word : "শব্দ পাওয়া যায়নি"}</h2>
             <p class="font-medium text-xl mb-6">Meaning /Pronounciation</p>
             <div class="font-semibold text-[25px] text-[#18181B] opacity-80 font-bangla">"${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "উচ্চারণ পাওয়া যায়নি"}"</div>
-            <div class="flex justify-between items-center mt-12">
-                <button onclick="loadWordDetails(${word.id})" class=" btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
-                <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
-            </div>
-
+        </div>
+        
+        <div class="flex justify-between items-center mt-12">
+            <button onclick="loadWordDetails(${word.id})" class=" btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+            <button onclick="pronounceWord('${word.word}')" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
         </div>
         `;
     wordContainer.append(card);
@@ -155,18 +156,20 @@ const displayLessons = (lessons) => {
 
 loadLessons();
 
-document.getElementById('btn-search').addEventListener('click', function () {
+document.getElementById("btn-search").addEventListener("click", function () {
   const allBtn = document.getElementsByClassName("lesson-btn");
-      for (let btn of allBtn) {
-        btn.classList.remove("btn-active");
-      }
-  const input = document.getElementById('input-search');
+  for (let btn of allBtn) {
+    btn.classList.remove("btn-active");
+  }
+  const input = document.getElementById("input-search");
   const searchValue = input.value.trim().toLowerCase();
-  fetch('https://openapi.programming-hero.com/api/words/all')
-    .then(response => response.json())
-    .then(data => {
+  fetch("https://openapi.programming-hero.com/api/words/all")
+    .then((response) => response.json())
+    .then((data) => {
       const allWords = data.data;
-      const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchValue));
+      const filterWords = allWords.filter((word) =>
+        word.word.toLowerCase().includes(searchValue),
+      );
       displayLevelWord(filterWords);
-    })
-  });
+    });
+});
