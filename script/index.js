@@ -126,9 +126,9 @@ const displayLevelWord = (words) => {
          <div class="bg-white rounded-[12px] text-center shadow-sm py-10 px-5 max-h-[320px]">
             <h2 class="font-bold text-[32px] leading-6 mb-6">${word.word ? word.word : "শব্দ পাওয়া যায়নি"}</h2>
             <p class="font-medium text-xl mb-6">Meaning /Pronounciation</p>
-            <div class="font-semibold text-[32px] text-[#18181B] opacity-80 font-bangla">"${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "উচ্চারণ পাওয়া যায়নি"}"</div>
+            <div class="font-semibold text-[25px] text-[#18181B] opacity-80 font-bangla">"${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "উচ্চারণ পাওয়া যায়নি"}"</div>
             <div class="flex justify-between items-center mt-12">
-                <button onclick="loadWordDetails(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+                <button onclick="loadWordDetails(${word.id})" class=" btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
                 <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
             </div>
 
