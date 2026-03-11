@@ -109,7 +109,7 @@ const displayLevelWord = (words) => {
         <div class="text-center col-span-full p-10">
             <img class=" mx-auto mb-6" src = "./assets/alert-error.png">
             <p class="font-bangla text-[#79716B] text-[14px] leading-6 mb-3">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</p>
-            <h2 class="text-[#292524] text-[34px] font-bangla font-medium leading-10">নেক্সট Lesson এ যান</h2>
+            <h2 class="text-[#292524] text-[24px] md:text-[34px] font-bangla font-medium leading-10">নেক্সট Lesson এ যান</h2>
         </div>
         `;
     spinnerManager(false);
